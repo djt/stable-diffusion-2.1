@@ -1,4 +1,5 @@
 from diffusers import StableDiffusionPipeline
+import torch
 import os
 
 def download_model():
