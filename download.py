@@ -3,7 +3,7 @@ import os
 
 def download_model():
     HF_AUTH_TOKEN = os.getenv("HF_AUTH_TOKEN")
-    model = DiffusionPipeline.from_pretrained('stabilityai/stable-diffusion-2-1-base', 
+    model = StableDiffusionPipeline.from_pretrained('stabilityai/stable-diffusion-2-1-base', 
                                               torch_dtype=torch.float16, 
                                               revision="fp16",
                                               use_auth_token=HF_AUTH_TOKEN)
