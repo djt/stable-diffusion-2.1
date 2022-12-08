@@ -28,7 +28,8 @@ def inference(model_inputs:dict) -> dict:
     generator = None
     if seed: generator = torch.Generator("cuda").manual_seed(seed)
     
-    image = model(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
+    with autocast("cuda"):
+        image = model(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
     
     buffered = BytesIO()
     image.save(buffered, format="JPEG")
