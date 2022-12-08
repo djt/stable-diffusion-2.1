@@ -21,14 +21,14 @@ def inference(model_inputs:dict) -> dict:
     width = model_inputs.get('width', 768)
     steps = model_inputs.get('steos', 5)
     guidance_scale = model_inputs.get('guidance_scale', 9)
-    seed = model_inputs.get("seed", None)
+    seed = model_inputs.get('seed', None)
 
     if not prompt: return {'message': 'No prompt was provided'}
     
     generator = None
     if seed: generator = torch.Generator("cuda").manual_seed(seed)
     
-    image = pipe(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
+    image = model(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
     
     buffered = BytesIO()
     image.save(buffered, format="JPEG")
