@@ -11,7 +11,7 @@ def download_model():
                                               torch_dtype=torch.float16, 
                                               revision="fp16",
                                               scheduler=scheduler,
-                                              use_auth_token=HF_AUTH_TOKEN).to("cuda")   
+                                              use_auth_token=HF_AUTH_TOKEN) 
     
 
 if __name__ == "__main__":
