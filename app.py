@@ -1,6 +1,6 @@
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline
+from diffusers import DiffusionPipeline, EulerDiscreteScheduler
 import base64
 from io import BytesIO
 import os
@@ -8,9 +8,12 @@ import os
 def init():
     global model
     HF_AUTH_TOKEN = os.getenv("HF_AUTH_TOKEN")
-    model = StableDiffusionPipeline.from_pretrained('stabilityai/stable-diffusion-2-1-base', 
+    repo = 'stabilityai/stable-diffusion-2-1-base'
+    scheduler = EulerDiscreteScheduler.from_pretrained(repo, subfolder="scheduler", prediction_type="v_prediction")
+    model = DiffusionPipeline.from_pretrained(repo, 
                                               torch_dtype=torch.float16, 
                                               revision="fp16",
+                                              scheduler=scheduler,
                                               use_auth_token=HF_AUTH_TOKEN).to("cuda")    
 
 def inference(model_inputs:dict) -> dict:
