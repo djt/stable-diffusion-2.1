@@ -1,13 +1,17 @@
-from diffusers import StableDiffusionPipeline
-import torch
 import os
+import torch
+from torch import autocast
+from diffusers import DiffusionPipeline, EulerDiscreteScheduler
 
 def download_model():
     HF_AUTH_TOKEN = os.getenv("HF_AUTH_TOKEN")
-    model = StableDiffusionPipeline.from_pretrained('stabilityai/stable-diffusion-2-1-base', 
+    repo = 'stabilityai/stable-diffusion-2-1-base'
+    scheduler = EulerDiscreteScheduler.from_pretrained(repo, subfolder="scheduler", prediction_type="v_prediction")
+    model = DiffusionPipeline.from_pretrained(repo, 
                                               torch_dtype=torch.float16, 
                                               revision="fp16",
-                                              use_auth_token=HF_AUTH_TOKEN)
+                                              scheduler=scheduler,
+                                              use_auth_token=HF_AUTH_TOKEN).to("cuda")   
     
 
 if __name__ == "__main__":
