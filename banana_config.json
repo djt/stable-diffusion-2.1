@@ -1,1 +1,7 @@
-
+{
+  "name": "Stable Diffusion 2.1",
+  "category": "Computer Vision",
+  "input": { },
+  "output": { },
+  "version": "1"
+}
