@@ -1,7 +1,16 @@
 {
   "name": "Stable Diffusion 2.1",
   "category": "Computer Vision",
-  "input": { },
-  "output": { },
+  "input": { 
+    "prompt": "A superhero with the body of a banana",
+    "height": 768,
+    "width": 768,
+    "steps": 20,
+    "guidance_scale": 9,
+    "seed": null
+  },
+  "output": {
+    "image_base64": "<BASE64_STRING>"
+  },
   "version": "2"
 }
