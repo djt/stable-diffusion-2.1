@@ -1,34 +1,25 @@
 
-# 🍌 Banana Serverless
+# 🍌 Stable Diffusion 2.1 on Banana
 
-This repo gives a basic framework for serving Stable Diffusion in production using simple HTTP servers.
-
-## Instant Deploy
-Stable Diffusion is now available as a prebult model on Banana! [See how to deploy Stable Diffusion in seconds](https://docs.banana.dev/banana-docs/core-concepts/inference-server/1-click-deploy).
-
+This repo gives a basic framework for serving Stable Diffusion 2.1 in production using simple HTTP servers.
 
 # Quickstart
 
-If you want to customize beyond the prebuilt model:
+Deploy this model via the one-click template [here]((https://app.banana.dev/templates/djt/stable-diffusion-2.1).
 
-**[Follow the quickstart guide in Banana's documentation to use this repo](https://docs.banana.dev/banana-docs/quickstart).** 
+You will also find the model inputs and outputs to help get you going.
 
-*(choose "GitHub Repository" deployment method)*
+Code snippets are visible at the bottom (more coming soon).
 
-### Additional Steps (outside of quickstart guide)
+### Additional Steps 
 
-1. Create your own private repo and copy the files from this template repo into it. You'll want a private repo so that your huggingface keys are secure.
-2. Create huggingface account to get permission to download and run [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4) text-to-image model.
-  - Accept terms and conditions for the use of the v1-4 [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4)
-3. Edit the `dockerfile` in your forked repo with `ENV HF_AUTH_TOKEN=your_auth_token`
-
+1. Create huggingface account to get permission to download and run [Stable Diffusion 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1-base) text-to-image model.
+  - Accept terms and conditions for the use of [Stable Diffusion 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1-base)
+2. After deploying the model on Banana, be sure to set the HF_AUTH_TOKEN build argument in the settings page of the model on Banana
 
 # Helpful Links
 Understand the 🍌 [Serverless framework](https://docs.banana.dev/banana-docs/core-concepts/inference-server/serverless-framework) and functionality of each file within it.
 
 Generalize this framework to [deploy anything on Banana](https://docs.banana.dev/banana-docs/resources/how-to-serve-anything-on-banana).
-
-
-<br>
 
 ## Use Banana for scale.
