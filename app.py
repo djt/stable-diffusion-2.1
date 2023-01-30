@@ -1,6 +1,6 @@
 import torch
 from torch import autocast
-from diffusers import DiffusionPipeline, EulerDiscreteScheduler
+from diffusers import DiffusionPipeline, DPMSolverMultistepScheduler
 import base64
 from io import BytesIO
 import os
@@ -9,20 +9,16 @@ def init():
     global model
     HF_AUTH_TOKEN = os.getenv("HF_AUTH_TOKEN")
     repo = 'stabilityai/stable-diffusion-2-1-base'
-    scheduler = EulerDiscreteScheduler.from_pretrained(repo, subfolder="scheduler", prediction_type="v_prediction")
-    model = DiffusionPipeline.from_pretrained(repo, 
-                                              torch_dtype=torch.float16, 
-                                              revision="fp16",
-                                              scheduler=scheduler,
-                                              use_auth_token=HF_AUTH_TOKEN).to("cuda")    
+    scheduler = DPMSolverMultistepScheduler.from_pretrained(repo, subfolder="scheduler")
+    model = DiffusionPipeline.from_pretrained(repo, torch_dtype=torch.float16, revision="fp16", scheduler=scheduler, use_auth_token=HF_AUTH_TOKEN).to("cuda")    
 
-def inference(model_inputs:dict) -> dict:
+def inference(model_inputs:dict):
     global model
 
     prompt = model_inputs.get('prompt', None)
     height = model_inputs.get('height', 768)
     width = model_inputs.get('width', 768)
-    steps = model_inputs.get('steos', 5)
+    steps = model_inputs.get('steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 9)
     seed = model_inputs.get('seed', None)
 
@@ -38,5 +34,4 @@ def inference(model_inputs:dict) -> dict:
     image.save(buffered, format="JPEG")
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    # Return the results as a dictionary
     return {'image_base64': image_base64}
